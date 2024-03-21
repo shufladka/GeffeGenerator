@@ -3,10 +3,13 @@ package by.bsuir.service.ciphers;
 import javax.swing.*;
 
 public class GeffeCipherImpl implements CipherMethods {
+    private static final int[] firstDefaultPolynomial = {3, 2};
+    private static final int[] secondDefaultPolynomial = {4, 1};
+    private static final int[] thirdDefaultPolynomial = {5, 3};
 
-    private static final int[] firstDefaultPolynomial = {23, 5};
-    private static final int[] secondDefaultPolynomial = {31, 3};
-    private static final int[] thirdDefaultPolynomial = {39, 4};
+    //private static final int[] firstDefaultPolynomial = {23, 5};
+    //private static final int[] secondDefaultPolynomial = {31, 3};
+    //private static final int[] thirdDefaultPolynomial = {39, 4};
     private final int[] firstPolynomial;
     private final int[] secondPolynomial;
     private final int[] thirdPolynomial;
@@ -99,7 +102,8 @@ public class GeffeCipherImpl implements CipherMethods {
         byte[] lfsr3Key = new LFSRCipherImpl(thirdPolynomial, thirdRegister).generateLfsrKey(length);
 
         for (int i = 0; i < length; i++) {
-            geffeKey[i] = (byte)((byte)(lfsr1Key[i] & lfsr2Key[i]) | (~lfsr1Key[i] & lfsr3Key[i]));
+            //geffeKey[i] = (byte)((byte)(lfsr2Key[i] & lfsr3Key[i]) ^ (byte)(~lfsr1Key[i] ^ lfsr3Key[i]));
+            geffeKey[i] = (byte)((byte)(lfsr1Key[i] & lfsr3Key[i]) ^ (byte)(~lfsr3Key[i] & lfsr2Key[i]));
         }
 
         return geffeKey;
@@ -117,7 +121,7 @@ public class GeffeCipherImpl implements CipherMethods {
         byte[] lfsr3Key = new LFSRCipherImpl(thirdPolynomial, thirdRegister).generateLfsrKey(length);
 
         for (int i = 0; i < length; i++) {
-            geffeKey[i] = (byte)((byte)(lfsr1Key[i] & lfsr2Key[i]) | (~lfsr1Key[i] & lfsr3Key[i]));
+            geffeKey[i] = (byte)((byte)(lfsr1Key[i] & lfsr3Key[i]) ^ (byte)(~lfsr3Key[i] & lfsr2Key[i]));
         }
 
         return new byte[][] {geffeKey, lfsr1Key, lfsr2Key, lfsr3Key};

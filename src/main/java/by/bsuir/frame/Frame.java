@@ -13,9 +13,12 @@ public class Frame extends JFrame {
 
     private String path;
     private final JLabel selectedFileLabel = new JLabel("");
-    private final JTextField firstLFSR = new JTextField("11101011101110111010101",39);
-    private final JTextField secondLFSR = new JTextField("1011111110101011101011101110101",39);
-    private final JTextField thirdLFSR = new JTextField("101110101111111011101011101110111010101",39);
+    //private final JTextField firstLFSR = new JTextField("11101011101110111010101", 39);
+    //private final JTextField secondLFSR = new JTextField("1011111110101011101011101110101", 39);
+    //private final JTextField thirdLFSR = new JTextField("101110101111111011101011101110111010101", 39);
+    private final JTextField firstLFSR = new JTextField("100",5);
+    private final JTextField secondLFSR = new JTextField("1000",5);
+    private final JTextField thirdLFSR = new JTextField("11111",5);
 
     public Frame(String title) throws HeadlessException {
         this.setTitle(title);
