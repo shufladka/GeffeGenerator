@@ -102,8 +102,7 @@ public class GeffeCipherImpl implements CipherMethods {
         byte[] lfsr3Key = new LFSRCipherImpl(thirdPolynomial, thirdRegister).generateLfsrKey(length);
 
         for (int i = 0; i < length; i++) {
-            //geffeKey[i] = (byte)((byte)(lfsr2Key[i] & lfsr3Key[i]) ^ (byte)(~lfsr1Key[i] ^ lfsr3Key[i]));
-            geffeKey[i] = (byte)((byte)(lfsr1Key[i] & lfsr3Key[i]) ^ (byte)(~lfsr3Key[i] & lfsr2Key[i]));
+            geffeKey[i] = (byte)((byte)(lfsr2Key[i] & lfsr3Key[i]) ^ (byte)(~lfsr3Key[i] & lfsr1Key[i]));
         }
 
         return geffeKey;
@@ -121,7 +120,7 @@ public class GeffeCipherImpl implements CipherMethods {
         byte[] lfsr3Key = new LFSRCipherImpl(thirdPolynomial, thirdRegister).generateLfsrKey(length);
 
         for (int i = 0; i < length; i++) {
-            geffeKey[i] = (byte)((byte)(lfsr1Key[i] & lfsr3Key[i]) ^ (byte)(~lfsr3Key[i] & lfsr2Key[i]));
+            geffeKey[i] = (byte)((byte)(lfsr2Key[i] & lfsr3Key[i]) ^ (byte)(~lfsr3Key[i] & lfsr1Key[i]));
         }
 
         return new byte[][] {geffeKey, lfsr1Key, lfsr2Key, lfsr3Key};
