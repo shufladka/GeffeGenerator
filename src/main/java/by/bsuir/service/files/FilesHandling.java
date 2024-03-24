@@ -35,6 +35,38 @@ public class FilesHandling {
     }
 
     /**
+     *  Метод для записи ключей в файл
+     */
+    private void writeKeysToFile(String path, String[] content) throws IOException {
+        FileOutputStream fileOutputStream = new FileOutputStream(path);
+        fileOutputStream.write(convertStringsToBytes(content));
+        fileOutputStream.close();
+    }
+
+    /**
+     *  Конвертирование массива строк в массив байт
+     */
+    public byte[] convertStringsToBytes(String[] strings) throws IOException {
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+        for (String str : strings) {
+            byte[] strBytes = str.getBytes();
+            byteArrayOutputStream.write(strBytes.length);
+            byteArrayOutputStream.write(strBytes);
+        }
+
+        return byteArrayOutputStream.toByteArray();
+    }
+
+    /**
+     *  Получение пути для сохранения полученных ключей (разделитель ключей Геффе, LFSR1-3 — "(")
+     */
+    private String saveKeysToFile(String path) {
+        return path + "_keys.txt";
+    }
+
+    /**
      *  Получение пути для сохранения зашифрованного файла
      */
     private String getEncryptedPath(String path) {
@@ -66,6 +98,9 @@ public class FilesHandling {
 
         byte[][] array = cipherMethods.generateArrayOfKeys(content.length);
 
+        //writeArraysToBinaryFile(array, saveKeysToFile(path));
+        writeKeysToFile(saveKeysToFile(path), getKeysArray(array, content.length));
+
         return getKeysArray(array, content.length);
     }
 
@@ -79,6 +114,8 @@ public class FilesHandling {
         writeContentToFile(getDecryptedPath(path), content);
 
         byte[][] array = cipherMethods.generateArrayOfKeys(content.length);
+
+        writeKeysToFile(saveKeysToFile(path), getKeysArray(array, content.length));
 
         return getKeysArray(array, content.length);
     }

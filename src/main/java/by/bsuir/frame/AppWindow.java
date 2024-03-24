@@ -9,7 +9,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class Frame extends JFrame {
+public class AppWindow extends JFrame {
 
     private String path;
     private final JLabel selectedFileLabel = new JLabel("");
@@ -17,7 +17,7 @@ public class Frame extends JFrame {
     private final JTextField secondLFSR = new JTextField("1011111110101011101011101110101", 39);
     private final JTextField thirdLFSR = new JTextField("101110101111111011101011101110111010101", 39);
 
-    public Frame(String title) throws HeadlessException {
+    public AppWindow(String title) throws HeadlessException {
         this.setTitle(title);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
